@@ -10,7 +10,7 @@ import user_experience
 
 def main():
     # Display welcome message
-    game_mechanics.welcome_message()
+    game_mechanics.welcome_message() #added a comment
     
     # Allow the player to choose a difficulty (if applicable)
     difficulty = user_experience.choose_difficulty()
