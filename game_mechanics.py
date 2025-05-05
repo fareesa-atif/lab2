@@ -12,9 +12,9 @@ def welcome_message():
     Returns: None
     """
     #------------------------
-    # Add your code here
+    print ("Welcome to Trivia Trek!")
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    
     #------------------------
 #---------------------------------------
     
@@ -29,9 +29,20 @@ def choose_category(categories):
     - str: The chosen category.
     """
     #------------------------
-    # Add your code here
+    choice = int(input "Choose a category from 1 to 4: ")
+    cat = ["1) Science", "2) history","3) pop culture","4) geography"]
+    print (cat)
+    if choice == 1:
+        print("Science")
+    elif choice == 2:
+        print("History")
+    elif choice == 3:
+        print("Pop culture")
+    elif choice == 4:
+        print("Geography")
+
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    # raise NotImplementedError("This function is not implemented yet.")
     #------------------------
 
 #---------------------------------------
@@ -47,9 +58,10 @@ def display_score(score, round_number):
     Returns: None
     """
     #------------------------
-    # Add your code here
+    print (f"Your score is {score}")
+    print (f"Round number is {round_number}")
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    # raise NotImplementedError("This function is not implemented yet.")
     #------------------------
 
 #---------------------------------------
@@ -64,9 +76,10 @@ def game_over_message(final_score):
     Returns: None
     """
     #------------------------
-    # Add your code here
+    print (f"Game over! Your final score is {final_score}")
+
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    # raise NotImplementedError("This function is not implemented yet.")
     #------------------------
 
 #---------------------------------------
@@ -81,9 +94,63 @@ def run_game_rounds(categories):
     Returns: None
     """
     #------------------------
-    # Add your code here
+    score = 0
+    round_number = 1
+    incorrect_answers = 0
+    allowed_skips = 2 # For skip_question()
+
+    selected_category = choose_category(categories)
+
+    while round_number <= 5:
+        question, correct_answer = select_random_question(selected_category)
+        print(f"\nQuestion: {question}")
+
+
+    want_to_skip = input("Do you want to skip this question? (yes/no): ").lower()
+    if want_to_skip == "yes" and skip_question(allowed_skips):
+        allowed_skips -= 1
+        print("Question skipped!")
+        round_number = next_round(round_number)
+
+    continue
+
+    player_answer = input("Your Answer: ")
+
+    correct = validate_answer(player_answer, correct_answer)
+    provide_feedback(correct)
+
+    if correct:
+        score = update_score(score, True)
+    else:
+        incorrect_answers += 1
+    
+    display_correct_answer(correct_answer)
+
+    display_score(score, round_number)
+
+    if check_game_over(incorrect_answers):
+        break
+
+    round_number = next_round(round_number)
+
+    game_over_message(score)
+    player_name = input("Enter your name for the leaderboard: ")
+    save_score(player_name, score)
+    leaderboard = load_top_scores()
+    display_leaderboard(leaderboard)
+    restart_or_exit()
+
+#---------------------------------------
+
+def validate_answer(player_answer, correct_answer):
+"""
+Validate the player's answer.
+"""
+
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+return player_answer.strip().lower() == correct_answer.strip().lower()
+
+    # raise NotImplementedError("This function is not implemented yet.")
     #------------------------
 
 #---------------------------------------
@@ -100,9 +167,9 @@ def validate_answer(player_answer, correct_answer):
     - bool: True if the player's answer is correct, False otherwise.
     """
     #------------------------
-    # Add your code here
+    return player_answer.strip().lower() == correct_answer.strip().lower()
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    #raise NotImplementedError("This function is not implemented yet.")
     #------------------------
 
 #---------------------------------------
@@ -119,9 +186,9 @@ def update_score(score, correct):
     - int: The updated score.
     """
     #------------------------
-    # Add your code here
+    return score + 10 if correct else score
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    # raise NotImplementedError("This function is not implemented yet.")
     #------------------------
 
 #---------------------------------------
@@ -137,9 +204,10 @@ def next_round(round_number):
     - int: The next round number.
     """
     #------------------------
-    # Add your code here
+    return current_round + 1
+
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    # raise NotImplementedError("This function is not implemented yet.")
     #------------------------
 
 #---------------------------------------
@@ -155,9 +223,9 @@ def check_game_over(incorrect_answers):
     - bool: True if the game should be over, False otherwise.
     """
     #------------------------
-    # Add your code here
+    return incorrect_answers >= 3
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    # raise NotImplementedError("This function is not implemented yet.")
     #------------------------
 
 #---------------------------------------
@@ -170,9 +238,15 @@ def restart_or_exit():
     Returns: None
     """
     #------------------------
-    # Add your code here
+    choice = input("Would you like to play again? (yes/no): ").strip().lower()
+    if choice == "yes":
+        trivia_trek()
+    else:
+        print("Thanks for playing Trivia Trek!")
     #------------------------
-    raise NotImplementedError("This function is not implemented yet.")
+    # raise NotImplementedError("This function is not implemented yet.")
     #------------------------
+    if __name__ == "__main__":
+        trivia_trek()
 
 #---------------------------------------
